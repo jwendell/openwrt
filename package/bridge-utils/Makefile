@@ -23,6 +23,7 @@ define Package/bridge
   CATEGORY:=Base system
   TITLE:=Ethernet bridging configuration utility
   URL:=http://bridge.sourceforge.net/
+  DEPENDS:=+kmod-bridge
 endef
 
 define Package/bridge/description
