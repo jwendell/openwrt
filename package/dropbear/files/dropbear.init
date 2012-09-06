@@ -81,6 +81,9 @@ dropbear_start()
 	[ -f "${val}" ] && append args "-r ${val}"
 	config_get val "${section}" dsskeyfile
 	[ -f "${val}" ] && append args "-d ${val}"
+	# H) idle timeout
+	config_get val "${section}" IdleTimeout 0
+	[ "${val}" -ne 0 ] && append args "-I ${val}"
 
 	# execute program and return its exit code
 	[ "${verbosed}" -ne 0 ] && echo "${initscript}: section ${section} starting ${PROG} ${args}"
