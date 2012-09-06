@@ -82,6 +82,9 @@ dropbear_instance()
 	[ -f "${val}" ] && procd_append_param command -r "${val}"
 	config_get val "${section}" dsskeyfile
 	[ -f "${val}" ] && procd_append_param command -d "${val}"
+	# H) idle timeout
+	config_get val "${section}" IdleTimeout 0
+	[ "${val}" -ne 0 ] && procd_append_param command "-I ${val}"
 
 	procd_close_instance
 }
