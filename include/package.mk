@@ -279,3 +279,7 @@ dist:
    
 distcheck:
 	$(Build/DistCheck) 
+
+distclean: clean
+	$(Build/DistClean)
+	rm -f $(DL_DIR)/$(PKG_SOURCE)
