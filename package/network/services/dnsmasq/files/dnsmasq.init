@@ -133,6 +133,9 @@ dnsmasq() {
 	config_get hostsfile "$cfg" dhcphostsfile
 	[ -e "$hostsfile" ] && xappend "--dhcp-hostsfile=$hostsfile"
 
+	config_get confdir "$cfg" conf_dir
+	[ -d "$confdir" ] && xappend "--conf-dir=$confdir"
+
 	local rebind
 	config_get_bool rebind "$cfg" rebind_protection 1
 	[ $rebind -gt 0 ] && {
