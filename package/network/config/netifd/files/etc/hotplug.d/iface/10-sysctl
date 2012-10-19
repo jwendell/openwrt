@@ -1,6 +1,9 @@
 # Skip fake devices (e.g. relayd)
 grep -qs "^ *$DEVICE:" /proc/net/dev || exit 0
 
+# Check if the kernel supports ipv6
+[ -f /proc/net/if_inet6 ] || exit 0
+
 case "$ACTION" in
 	ifup)
 		include /lib/network
