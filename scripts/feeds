@@ -539,6 +539,7 @@ sub update {
 	my %opts;
 	my $feed_name;
 	my $perform_update=1;
+	my $result;
 
 	$ENV{SCAN_COOKIE} = $$;
 	$ENV{OPENWRT_VERBOSE} = 's';
@@ -563,7 +564,7 @@ sub update {
 	if ( ($#ARGV == -1) or $opts{a}) {
 		foreach my $feed (@feeds) {
 			my ($type, $name, $src) = @$feed;
-			update_feed($type, $name, $src, $perform_update);
+			$result = 1 if update_feed($type, $name, $src, $perform_update);
 		}
 	} else {
 		while ($feed_name = shift @ARGV) {
@@ -572,14 +573,14 @@ sub update {
 				if($feed_name ne $name) {
 					next;
 				}
-				update_feed($type, $name, $src, $perform_update);
+				$result = 1 if update_feed($type, $name, $src, $perform_update);
 			}
 		}
 	}
 
 	refresh_config();
 
-	return 0;
+	return $result;
 }
 
 sub usage() {
