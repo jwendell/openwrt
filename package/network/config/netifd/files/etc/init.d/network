@@ -6,13 +6,16 @@ STOP=90
 SERVICE_DAEMONIZE=1
 SERVICE_WRITE_PID=1
 
+DEFAULT=/etc/default/netifd
+
 start() {
 	stop
 	[ -e /proc/sys/kernel/core_pattern ] && {
 		ulimit -c unlimited
 		echo '/tmp/%e.%p.%s.%t.core' > /proc/sys/kernel/core_pattern
 	}
-	service_start /sbin/netifd
+	[ -f $DEFAULT ] && . $DEFAULT
+	service_start /sbin/netifd $OPTIONS
 
 	setup_switch() { return 0; }
 
